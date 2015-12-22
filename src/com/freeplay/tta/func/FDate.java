@@ -1,6 +1,8 @@
 package com.freeplay.tta.func;
 
 import java.util.Calendar;
+import java.util.Date;
+
 
 public class FDate {
 
@@ -8,13 +10,19 @@ public class FDate {
 	 * 得到买票日期
 	 * @return
 	 */
-	public static String getBDate(String tDate) {
+	public static String getBDate(int year,int month,int day,int minus_day) {
 		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(tDate.substring(0, 4)), Integer.parseInt(tDate.substring(4, 6)), Integer.parseInt(tDate.substring(6, 8)));
-		System.out.println(cal.YEAR+"年"+cal.MONTH+"月"+cal.DAY_OF_MONTH+"日");
-		cal.set(Calendar.DATE, -60);
-		System.out.println(cal.YEAR+"年"+cal.MONTH+"月"+cal.DAY_OF_MONTH+"日");
-		return cal.YEAR+""+cal.MONTH+""+cal.DAY_OF_MONTH+"";
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month-1);
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		cal.add(Calendar.DATE, -minus_day);
+		int real_mon = cal.get(Calendar.MONTH) +1;
+		return cal.get(Calendar.YEAR)+"年"+real_mon+"月"+cal.get(Calendar.DAY_OF_MONTH)+"日";
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println(getBDate(2016, 2, 23, 60));
 	}
 	
 }
